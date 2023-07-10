@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="./style.css">
+    <title>Registration form</title>
+</head>
+<body>
+<form id="Registration-form">
+    <div class="field">
+        <label for="first-name">Name:</label>
+        <input type="text" id="first-name" placeholder="Enter your name">
+        <small></small>
+    </div>
+    
+    <div class="field">
+         <label for="last-name">Last name:</label>
+         <input type="text" id="last-name" placeholder="Enter your last name">
+         <small></small>
+    </div>
+    <div class="field">
+         <label for="Date-of-birth">Date of birth:</label>
+         <input type="text" id="Date-of-birth" placeholder="Enter your date of birth">
+         <small></small>
+    </div>
+    <div class="field">
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">man</label>
+        <input type="radio" id="female" name="gender" value="female" >
+        <label for="female">woman</label>
+        <small></small>
+    </div>
+    <div class="field">
+        <label for="city">City:</label>
+        <select id="city">
+           <option value="Kyiv">Kyiv</option>
+           <option value="Odessa">Odessa</option>
+           <option value="Lviv">Lviv</option>
+    </select>
+    <small></small>
+    </div>
+    <div class="field">
+        <label for="address">Address:</label>
+        <textarea name="address" id="address"></textarea>
+        <small></small>
+    </div>
+    <div class="field">
+        <label for="language">Languages:</label>
+        <input type="checkbox" id="english">
+        <label for="language">English</label>
+        <input type="checkbox" id ="spanish">
+        <label for="language">Spanish</label>
+        <input type="checkbox" id ="polish">
+        <label for="language">Polish</label>
+        <small></small>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+<table id="Userdat">
+    <thead>
+       <tr>
+        <th>Name</th>
+        <th>Last name</th>
+        <th>Date of birth</th>
+        <th>Gender</th>
+        <th>City</th>
+        <th>Address</th>
+        <th>Languages</th>
+       </tr>
+    </thead>
+   
+</table>
+
+    <script src="./main.js"></script>
+</body>
+</html>
