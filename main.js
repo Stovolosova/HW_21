@@ -101,7 +101,7 @@ function validateAddress(el, message) {
     }
 }
 
-function validateCheckbox (elements, message) {
+function validateLanguages (elements, message) {
     let checkedLanguages = Array.from(elements)
           .filter(element => element.checked)
           .map(element => element.value);
@@ -124,9 +124,9 @@ form.addEventListener('submit', (event) => {
     const isGenderValid = validateGender(genderElement, GENDER_ERROR);
     const isCityValid = validateCity(cityElement, CITY_ERROR);
     const isAddressValid = validateAddress(addressElement, ADDRESS_ERROR);
-    const isCheckboxValid = validateCheckbox(languageElements, LANGUAGE_ERROR);
+    const isLanguagesValid = validateLanguages(languageElements, LANGUAGE_ERROR);
 
-    if (isFirstNameValid && isLastNameValid && isDateOfBirthValid && isGenderValid && isCityValid && isAddressValid && isCheckboxValid) {
+    if (isFirstNameValid && isLastNameValid && isDateOfBirthValid && isGenderValid && isCityValid && isAddressValid && isLanguagesValid) {
         console.log('Submit');
 
         document.getElementById('user-name').textContent = firstNameElement.value;
@@ -135,8 +135,8 @@ form.addEventListener('submit', (event) => {
         document.getElementById('user-gender').textContent = genderElement.value;
         document.getElementById('user-city').textContent = cityElement.value;
         document.getElementById('user-address').textContent = addressElement.value;
-        document.getElementById('user-languages').textContent = languageElements.value;
-
+        document.getElementById('user-languages').textContent = isLanguagesValid.join(',');
+       
         form.style.display = 'none';
         table.style.display = 'table';
     }
