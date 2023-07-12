@@ -5,7 +5,8 @@ const dateOfBirthElement = form.elements['Date-of-birth'];
 const genderElement = form.elements['gender'];
 const cityElement = form.elements['city'];
 const addressElement = form.elements['address'];
-const checkboxElements = form.elements['language'];
+const languageElements = document.querySelectorAll('input[type=checkbox]');
+const table = document.getElementById('user-data');
 
 const NAME_ERROR = 'Please enter a name';
 const LAST_NAME_ERROR = 'Please enter a last name';
@@ -14,10 +15,6 @@ const GENDER_ERROR = 'Please select a value';
 const CITY_ERROR = 'Please select a value';
 const ADDRESS_ERROR = 'Please enter the address';
 const LANGUAGE_ERROR = 'Please select a value';
-
-const tableBody = document.createElement('tbody');
-const table = document.getElementById('Userdat');
-table.appendChild(tableBody); 
 
 function showError(el, message) {
     const errorPlaceholder = el.parentNode.querySelector('small');
@@ -33,14 +30,12 @@ function showSuccess(el) {
     el.classList.remove('error');
 }
 
-
 function validateFirstName(el, message) {
     const name = el.value.trim();
     if (name !== '') {
         showSuccess(el, message);
         return true;
     } else {
-
         showError(el, message);
         return false;
     }
@@ -52,7 +47,6 @@ function validateLastName(el, message) {
         showSuccess(el, message);
         return true;
     } else {
-
         showError(el, message);
         return false;
     }
@@ -60,41 +54,46 @@ function validateLastName(el, message) {
 
 function validateDateOfBirth(el, message) {
     const dateOfBirth = el.value.trim();
-    if (dateOfBirth  !== '') {
-        showSuccess(el);
+    if (dateOfBirth !== '') {
+        showSuccess(el, message);
         return true;
     } else {
-
         showError(el, message);
         return false;
     }
 }
 
-function validateGender (el, message) {
-    const isChecked = Array.from(el).some((radio) => radio.checked);
+function validateGender(elements, message) {
+    let isChecked = false;
+    elements.forEach(function (element) {
+        if (element.checked) {
+            isChecked = true;
+        }
+    });
     if (isChecked) {
-        showSuccess(el);
+        showSuccess(elements[0]);
+        return true;
     } else {
-        showError(el[0], message);
+        showError(elements[0], message);
         return false;
     }
 }
 
 function validateCity(el, message) {
-    const selectedCity = el.value;
+    const selectedCity = el.value.trim();
     if (selectedCity !== '') {
-        showSuccess (el);
+        showSuccess(el, message);
         return true;
     } else {
         showError(el, message);
-    return false;
+        return false;
     }
 }
 
-function validateAddress (el, message) {
+function validateAddress(el, message) {
     const address = el.value.trim();
     if (address !== '') {
-        showSuccess (el);
+        showSuccess(el, message);
         return true;
     } else {
         showError(el, message);
@@ -102,20 +101,22 @@ function validateAddress (el, message) {
     }
 }
 
-function validateCheckbox (el, message) {
-    
-    if (!isChecked) {
-        showError (el, message);
-        return false;
+function validateCheckbox (elements, message) {
+    let checkedLanguages = Array.from(elements)
+          .filter(element => element.checked)
+          .map(element => element.value);
+   
+    if (checkedLanguages.length > 0) {
+        showSuccess (elements[0]);
+        return checkedLanguages;
     } else {
-        showSuccess (el);
-        return true;
+        showError (elements[0], message);
+        return false;
     }
 }
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-
     // Validation
     const isFirstNameValid = validateFirstName(firstNameElement, NAME_ERROR);
     const isLastNameValid = validateLastName(lastNameElement, LAST_NAME_ERROR);
@@ -123,12 +124,21 @@ form.addEventListener('submit', (event) => {
     const isGenderValid = validateGender(genderElement, GENDER_ERROR);
     const isCityValid = validateCity(cityElement, CITY_ERROR);
     const isAddressValid = validateAddress(addressElement, ADDRESS_ERROR);
-    const isCheckboxValid = validateCheckbox(checkboxElements, LANGUAGE_ERROR);
+    const isCheckboxValid = validateCheckbox(languageElements, LANGUAGE_ERROR);
 
-    if (isFirstNameValid && isLastNameValid && isCheckboxValid && isGenderValid && isDateOfBirthValid && isCityValid && isAddressValid) {
+    if (isFirstNameValid && isLastNameValid && isDateOfBirthValid && isGenderValid && isCityValid && isAddressValid && isCheckboxValid) {
         console.log('Submit');
-        
-        }
+
+        document.getElementById('user-name').textContent = firstNameElement.value;
+        document.getElementById('user-last-name').textContent = lastNameElement.value;
+        document.getElementById('user-date-of-birth').textContent = dateOfBirthElement.value;
+        document.getElementById('user-gender').textContent = genderElement.value;
+        document.getElementById('user-city').textContent = cityElement.value;
+        document.getElementById('user-address').textContent = addressElement.value;
+        //document.getElementById('user-languages').textContent = languages.join(', ');
+
+        form.style.display = 'none';
+        table.style.display = 'table';
     }
-    
-);
+    form.reset();
+});
