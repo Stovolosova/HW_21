@@ -135,7 +135,7 @@ form.addEventListener('submit', (event) => {
         document.getElementById('user-gender').textContent = genderElement.value;
         document.getElementById('user-city').textContent = cityElement.value;
         document.getElementById('user-address').textContent = addressElement.value;
-        //document.getElementById('user-languages').textContent = languages.join(', ');
+        document.getElementById('user-languages').textContent = languageElements.value;
 
         form.style.display = 'none';
         table.style.display = 'table';
